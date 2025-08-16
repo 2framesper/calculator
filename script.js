@@ -58,8 +58,15 @@ calcBtns.addEventListener('click', (event) => {
         }
     } else if (OPLIST.includes(event.target.textContent) && leftSide == true) {
         if (num2 !== '') {
-            // complete operation, move to pastcalc
+            // complete operation
             result = operate(Number(num1), operator, Number(num2));
+
+            // round to 6 dec if not a whole number
+            if (result % 1 !== 0) {
+                result = result.toFixed(6);
+            }
+
+            // move expression to pastCalc
             pastCalc.textContent = currentDisplay.textContent;
             currentDisplay.textContent = result;
 
@@ -80,17 +87,32 @@ calcBtns.addEventListener('click', (event) => {
         if (leftSide === false) {
             if (num1 === '') {
                 pastCalc.textContent = 0;
-                currentDisplay.textContent = '';
+                currentDisplay.textContent = '0';
+                return
             } else {
-                return pastCalc.textContent = num1;
+                pastCalc.textContent = num1;
+                return
             }
+        } else if (leftSide === true && num2 === ''){
+            pastCalc.textContent = num1;
+            currentDisplay.textContent = num1;
+            leftSide = false;
+            operator = '';
+            return
         }
+        // complete operation
         result = operate(Number(num1), operator, Number(num2));
         if (isNaN(result) || result === Infinity || checkMinLength(operator, 2)) {
             currentDisplay.textContent = 'ERROR';
             isError = true;
             return;
         } else {
+            // round to 6 dec if not a whole number
+            if (result % 1 !== 0) {
+                result = result.toFixed(6);
+            }
+
+            // move expression to pastCalc
             pastCalc.textContent = currentDisplay.textContent;
             currentDisplay.textContent = result;
 
@@ -131,9 +153,13 @@ calcBtns.addEventListener('click', (event) => {
 
     // C button
     if (event.target.textContent === 'C') {
+        // clears display if already finished operation
         if (operated === true) {
             clearDisplay();
-        } else if (leftSide === false) {
+        } 
+
+        // Deletes latest entry if not
+        else if (leftSide === false) {
             num1 = num1.slice(0, -1);
             currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
         } else if (leftSide === true && num2 === '') {
@@ -147,16 +173,6 @@ calcBtns.addEventListener('click', (event) => {
         }
     }
 })
-
-// display buttons
-function displayNum(i) {
-    current.textContent += i;
-    if (current.textContent == 0) {
-        a = i;
-    } else if (current.textContent) {
-
-    }
-}
 
 // operate function
 function operate(a, operator, b) {
@@ -199,7 +215,6 @@ function checkMinLength(str, minLength) {
     return str.length >= minLength;
 }
 
-// TO WORK ON
 function clearDisplay() {
     num1 = '';
     operator = '';
@@ -213,6 +228,7 @@ function clearDisplay() {
     currentDisplay.textContent = '0';
 }
 
+// Happens on load
 window.onload = () => {
     currentDisplay.textContent = '0';
 }
