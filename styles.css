@@ -155,3 +155,18 @@ footer {
 
     margin-top: 3rem;
 }
+
+@media (max-width: 600px) {
+    #calculator {
+        padding: 0.8rem;
+    }
+
+    button {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+
+    #display {
+        padding: 0.8rem;
+    }
+}
