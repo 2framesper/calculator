@@ -6,7 +6,6 @@ let operator = '';
 let result;
 
 let leftSide = false;
-let rightSide = false;
 let operated = false;
 
 let isError = false;
@@ -33,8 +32,13 @@ calcBtns.addEventListener('click', (event) => {
 
     // Number buttons
     if (NUMLIST.includes(event.target.textContent) && leftSide == false) {
-        num1 += event.target.id;
-        currentDisplay.textContent += event.target.id;
+        if (currentDisplay.textContent !== '0') {
+            num1 += event.target.id;
+            currentDisplay.textContent += event.target.id;
+        } else {
+            num1 = event.target.id;
+            currentDisplay.textContent = event.target.id;
+        }
     } else if (NUMLIST.includes(event.target.textContent) && leftSide == true) {
         num2 += event.target.id;
         currentDisplay.textContent += event.target.id;
@@ -42,9 +46,16 @@ calcBtns.addEventListener('click', (event) => {
 
     // Operator buttons
     if (OPLIST.includes(event.target.textContent) && leftSide == false) {
-        leftSide = true;
-        operator = event.target.id;
-        currentDisplay.textContent += event.target.id;
+        if (num1 !== '') {
+            leftSide = true;
+            operator = event.target.id;
+            currentDisplay.textContent += event.target.id;
+        } else {
+            leftSide = true;
+            num1 = '0';
+            operator = event.target.id;
+            currentDisplay.textContent += event.target.id;
+        }
     } else if (OPLIST.includes(event.target.textContent) && leftSide == true) {
         if (num2 !== '') {
             // complete operation, move to pastcalc
@@ -65,6 +76,7 @@ calcBtns.addEventListener('click', (event) => {
 
     // Equals button
     if (event.target.textContent === '=') {
+        operated = true;
         if (leftSide === false) {
             if (num1 === '') {
                 pastCalc.textContent = 0;
@@ -88,6 +100,11 @@ calcBtns.addEventListener('click', (event) => {
             operator = '';
             leftSide = false;
         }
+    }
+
+    // AC button
+    if(event.target.textContent === 'AC') {
+        clearDisplay();
     }
 })
 
@@ -139,5 +156,18 @@ function checkMinLength(str, minLength) {
 
 // TO WORK ON
 function clearDisplay() {
+    num1 = '';
+    operator = '';
+    num2 = '';
 
+    leftSide = false;
+    operated = false;
+    isError = false;
+
+    pastCalc.textContent = '';
+    currentDisplay.textContent = '0';
+}
+
+window.onload = () => {
+    currentDisplay.textContent = '0';
 }
