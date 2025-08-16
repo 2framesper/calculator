@@ -127,7 +127,9 @@ function operate(a, operator, b) {
     } else if (operator === '×') {
         return multiply(a, b);
     } else if (operator === '÷') {
-        return divide (a, b);
+        return divide(a, b);
+    } else if (operator === '%') {
+        return modulus(a, b);
     }
 }
 
@@ -143,6 +145,9 @@ function multiply(a, b) {
 }
 function divide(a, b) {
     return a / b;
+}
+function modulus(a, b) {
+    return a % b;
 }
 
 // helper functions
