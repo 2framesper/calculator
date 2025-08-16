@@ -46,7 +46,7 @@ calcBtns.addEventListener('click', (event) => {
         operator = event.target.id;
         currentDisplay.textContent += event.target.id;
     } else if (OPLIST.includes(event.target.textContent) && leftSide == true) {
-        if (operator !== '') {
+        if (num2 !== '') {
             // complete operation, move to pastcalc
             result = operate(Number(num1), operator, Number(num2));
             pastCalc.textContent = currentDisplay.textContent;
@@ -59,6 +59,7 @@ calcBtns.addEventListener('click', (event) => {
             currentDisplay.textContent += event.target.id;
         } else {
             currentDisplay.textContent += event.target.id;
+            operator += event.target.id;
         }
     }
 
@@ -69,11 +70,11 @@ calcBtns.addEventListener('click', (event) => {
                 pastCalc.textContent = 0;
                 currentDisplay.textContent = '';
             } else {
-                pastCalc.textContent = num1;
+                return pastCalc.textContent = num1;
             }
         }
         result = operate(Number(num1), operator, Number(num2));
-        if (isNaN(result) || result === Infinity) {
+        if (isNaN(result) || result === Infinity || checkMinLength(operator, 2)) {
             currentDisplay.textContent = 'ERROR';
             isError = true;
             return;
@@ -127,11 +128,14 @@ function divide(a, b) {
     return a / b;
 }
 
-console.log(add(6, 7));
-console.log(subtract(6, 7));
-console.log(multiply(6, 7));
-console.log(divide(6, 7));
+// helper functions
+function checkLength(str, targetLength) {
+    return str.length === targetLength;
+}
 
+function checkMinLength(str, minLength) {
+    return str.length >= minLength;
+}
 
 // TO WORK ON
 function clearDisplay() {
