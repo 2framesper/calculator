@@ -71,13 +71,14 @@ body {
 #buttonGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: .5rem;
+    grid-gap: .5em;
 }
 
 button {
     height: 100%;
-    aspect-ratio: 1/1;
-    padding: 1.3rem;
+    width: 4.45rem;
+    height: 4.45rem;
+    padding: 1em;
 
     border-style: hidden;
     border-radius: 100%;
@@ -93,10 +94,12 @@ button {
 
     cursor: pointer; /* Changes the cursor to a pointer on hover */
     transition: transform 0.2s ease, box-shadow 0.2s ease; /* Adds smooth transitions */
+
+    min-width: 0;
 }
 
 button:hover {
-    transform: translateY(-3px); /* Moves the button up by 5 pixels */
+    transform: translateY(-0.2rem); /* Moves the button up by 5 pixels */
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4); /* Makes the shadow larger */
 }
 
@@ -141,7 +144,8 @@ button:active {
 }
 
 .equals {
-    aspect-ratio: 2/1;
+    width: auto;
+    grid-column: span 2;
     border-radius: 2.5rem;
 }
 
