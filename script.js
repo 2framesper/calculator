@@ -26,7 +26,7 @@ calcBtns.addEventListener('click', (event) => {
 
     if(!event.target.closest('button')) return;
 
-    if (isError && !isClearButton(event)) {
+    if (isError && event.target.textContent !== 'AC') {
         return;
     }
 
@@ -102,9 +102,49 @@ calcBtns.addEventListener('click', (event) => {
         }
     }
 
+    // Decimal button
+    if (event.target.textContent === '.') {
+        if (leftSide === false && num1 !== ''){
+            num1 += event.target.id;
+            currentDisplay.textContent += event.target.id;
+        } else if (leftSide === false && num1 === '') {
+            num1 += 0;
+            num1 += event.target.id;
+            currentDisplay.textContent += event.target.id;
+        }
+
+        if (leftSide === true && num2 !== ''){
+            num2 += event.target.id;
+            currentDisplay.textContent += event.target.id;
+        } else if (leftSide === true && num1 === '') {
+            num1 += 0;
+            num1 += event.target.id;
+            currentDisplay.textContent += '0';
+            currentDisplay.textContent += event.target.id;
+        }
+    }
+
     // AC button
     if(event.target.textContent === 'AC') {
         clearDisplay();
+    }
+
+    // C button
+    if (event.target.textContent === 'C') {
+        if (operated === true) {
+            clearDisplay();
+        } else if (leftSide === false) {
+            num1 = num1.slice(0, -1);
+            currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+        } else if (leftSide === true && num2 === '') {
+            if (num2 === '') {
+                operator = operator.slice(0, -1);
+                currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+            } else {
+                num2 = num2.slice(0, -1);
+                currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+            }
+        }
     }
 })
 
