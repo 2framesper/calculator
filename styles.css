@@ -90,6 +90,54 @@ button {
 
     background-color: #5588aa;
     color: white;
+
+    cursor: pointer; /* Changes the cursor to a pointer on hover */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Adds smooth transitions */
+}
+
+button:hover {
+    transform: translateY(-3px); /* Moves the button up by 5 pixels */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4); /* Makes the shadow larger */
+}
+
+button:active {
+    transform: translateY(0); /* Moves the button back down */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Resets the shadow to its original state */
+}
+
+/* Add the hover and active states for the equals button as well */
+.equals:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+
+    background-color: rgb(76, 178, 76);
+}
+
+.equals:active {
+    transform: translateY(0);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover states for all the other buttons */
+.numBtn:hover {
+    background-color: #b3b3b3;
+    color: rgb(57, 57, 57);
+}
+
+.opBtn:hover {
+    /* background-color: rgb(86, 179, 219); */
+    background-color: rgb(220, 217, 83);
+    color: rgb(57, 57, 57);
+}
+
+.clear:hover {
+    background-color: #da9262;
+    color: rgb(57, 57, 57);
+}
+
+.allClear:hover {
+    background-color: #d86c6c;
+    color: rgb(57, 57, 57);
 }
 
 .equals {
